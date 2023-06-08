@@ -22,6 +22,7 @@ A picture to illustrate the flow of planes at the stations:
 
 <h2> What technologies is the project built on? </h2>
 This project was built on the server side with ASP.Net web api and React TypeScript on the client side, as well as with Entity Framework as ORM and SQL SERVER as database.
+ In addition, the MSTest project with the Moq library was used to perform tests.
   
   <h2> How does it look? </h2>
   Example:
