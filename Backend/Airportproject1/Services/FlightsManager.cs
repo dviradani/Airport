@@ -32,7 +32,7 @@ namespace Airportproject1.BL
             Fly(flight);
         }
 
-        private void RemoveFlight(Flight flight)
+        public void RemoveFlight(Flight flight)
         {
             Flights.Remove(flight);
             _ = _hubService.SendFlight(Flights.ToList());
