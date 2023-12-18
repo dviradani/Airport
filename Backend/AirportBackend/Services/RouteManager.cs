@@ -43,7 +43,7 @@ namespace AirportBackend.Services
             {
                 _ = _repo.UpdateRouteState(Route);
                 await _signalRService.RouteState(Route);
-                Console.WriteLine($"Flight {flight.FlightNumber} left the Terminal at time {DateTime.Now} Departing:{flight.isDeparting}");
+                Console.WriteLine($"Flight {flight.FlightNumber} left the Terminal at time {DateTime.Now} Departing:{flight.IsDeparting}");
                 if (FlightLeftTheRoute != null)
                     FlightLeftTheRoute.Invoke(flight);
                 return;
@@ -57,7 +57,7 @@ namespace AirportBackend.Services
                 flight.CurrentStation = Route[nextStation];
                 _ = _repo.UpdateRouteState(Route);
                 await _signalRService.RouteState(Route);
-                Console.WriteLine($"Flight {flight.FlightNumber} Entered {flight.CurrentStation.Name} at time {DateTime.Now} Departing:{flight.isDeparting}  ");
+                Console.WriteLine($"Flight {flight.FlightNumber} Entered {flight.CurrentStation.Name} at time {DateTime.Now} Departing:{flight.IsDeparting}  ");
                 Console.WriteLine($"------------------------------------------------------------------------------------------------------------");
                 Thread.Sleep(3000);
                 await ExitStation(flight);
@@ -71,7 +71,7 @@ namespace AirportBackend.Services
                 flight.CurrentStation = Route[6];
                 _ = _repo.UpdateRouteState(Route);
                 await _signalRService.RouteState(Route);
-                Console.WriteLine($"Flight {flight.FlightNumber} Entered {flight.CurrentStation.Name} at time {DateTime.Now} Departing:{flight.isDeparting} ");
+                Console.WriteLine($"Flight {flight.FlightNumber} Entered {flight.CurrentStation.Name} at time {DateTime.Now} Departing:{flight.IsDeparting} ");
                 Console.WriteLine($"------------------------------------------------------------------------------------------------------------");
                 Thread.Sleep(3000);
                 await ExitStation(flight);
@@ -84,7 +84,7 @@ namespace AirportBackend.Services
                 Route[nextStation].Queue.Enqueue(flight);
                 _ = _repo.UpdateRouteState(Route);
                 await _signalRService.RouteState(Route);
-                Console.WriteLine($"Flight {flight.FlightNumber} Put in {Route[nextStation].Name} queue at time {DateTime.Now} Departing:{flight.isDeparting} ");
+                Console.WriteLine($"Flight {flight.FlightNumber} Put in {Route[nextStation].Name} queue at time {DateTime.Now} Departing:{flight.IsDeparting} ");
                 Console.WriteLine($"------------------------------------------------------------------------------------------------------------");
             }
         }
@@ -93,12 +93,12 @@ namespace AirportBackend.Services
             flight.CurrentStation!.Flight = null;
             _ = _repo.UpdateRouteState(Route);
             await _signalRService.RouteState(Route);
-            Console.WriteLine($"Flight {flight.FlightNumber} Exited {flight.CurrentStation!.Name} at time {DateTime.Now} Departing:{flight.isDeparting}");
+            Console.WriteLine($"Flight {flight.FlightNumber} Exited {flight.CurrentStation!.Name} at time {DateTime.Now} Departing:{flight.IsDeparting}");
             Console.WriteLine($"------------------------------------------------------------------------------------------------------------");
             if (flight.CurrentStation.Queue.Count > 0)
             {
                 Flight newFlight = flight.CurrentStation.Queue.Dequeue();
-                Console.WriteLine($"Flight {newFlight.FlightNumber} Released from {flight.CurrentStation.Name} queue at time {DateTime.Now} Departing:{newFlight.isDeparting} ");
+                Console.WriteLine($"Flight {newFlight.FlightNumber} Released from {flight.CurrentStation.Name} queue at time {DateTime.Now} Departing:{newFlight.IsDeparting} ");
                 Console.WriteLine($"------------------------------------------------------------------------------------------------------------");
                 _ = _repo.UpdateRouteState(Route);
                 await _signalRService.RouteState(Route);
@@ -107,7 +107,7 @@ namespace AirportBackend.Services
         }
         private int FindNextStation(Flight flight)
         {
-            if (!flight.isDeparting)
+            if (!flight.IsDeparting)
             {
                 // If the airplane needs to get into its first station on the route
                 if (flight.CurrentStation == null)

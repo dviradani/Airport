@@ -8,7 +8,7 @@ namespace AirportBackend.Models
         public int Id { get; set; }
         public int FlightNumber { get; set; }
         public string? Name { get; set; }
-        public bool isDeparting { get; set; }
+        public bool IsDeparting { get; set; }
         [JsonIgnore]
         [NotMapped]
         public virtual Station? CurrentStation { get; set; }

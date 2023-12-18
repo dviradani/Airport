@@ -36,8 +36,8 @@ namespace AirportBackend.Services
             int totalCountries = Enum.GetNames(typeof(Countries)).Length;
             int randomIndex = _random.Next(0, totalCountries);
             flight.Name = Enum.GetName(typeof(Countries), randomIndex);
-            flight.isDeparting = _random.Next(2) == 0;
-            Console.WriteLine($"Flight {flight.FlightNumber} {flight.Name} Created at time {DateTime.Now} Departing:{flight.isDeparting}");
+            flight.IsDeparting = _random.Next(2) == 0;
+            Console.WriteLine($"Flight {flight.FlightNumber} {flight.Name} Created at time {DateTime.Now} Departing:{flight.IsDeparting}");
             Console.WriteLine($"------------------------------------------------------------------------------------------------------------");
             _flightManager.AddFlight(flight);
             //_context.Flights.Add(flight);

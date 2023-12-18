@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zzvYAfjZE8zdhltzauPhLSXRufxfX69zW2Hi3v8ca/Kp+Ldi4LxoKzI/YDmPtK3Nw4HY2Ofbti2BmNH51wGndg==",
-  "success": true,
-  "projectFilePath": "c:\\Users\\dvira\\Documents\\MyProjects\\Airport\\Backend\\AirportProject.Tests\\AirportProject.Tests.csproj",
+  "dgSpecHash": "5ulur/b04zHwbmS0ttnP1H2fpeJWKO2/Z4wxzA9l9n6a35f265YcRszSJXYM1+hb+5CkAtzj1fRQ3qO7JeMl9A==",
+  "success": false,
+  "projectFilePath": "C:\\Users\\dvira\\Documents\\MyProjects\\Airport\\Backend\\AirportProject.Tests\\AirportProject.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dvira\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\dvira\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
@@ -103,5 +103,15 @@
     "C:\\Users\\dvira\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\dvira\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Unable to find project 'C:\\Users\\dvira\\Documents\\MyProjects\\Airport\\Backend\\Airportproject1\\Airportproject.Client.csproj'. Check that the project reference is valid and that the project file exists.",
+      "libraryId": "C:\\Users\\dvira\\Documents\\MyProjects\\Airport\\Backend\\Airportproject1\\Airportproject.Client.csproj",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
 }

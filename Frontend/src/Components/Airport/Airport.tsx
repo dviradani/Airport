@@ -14,10 +14,10 @@ const Airport = () => {
   const [planeListData, setPlanesDate] = useState<IFlight[] | null>(null);
   const [isStarted, setIsStarted] = useState(false);
 
-  const baseUrl = 'http://localhost:5165/'
+  const baseUrl = "http://localhost:5165/";
 
   const handleClick = () => {
-    fetch( baseUrl +"api/airport/start");
+    fetch(baseUrl + "api/airport/start", { method: "POST" }); //Schange this function to post request
     setIsStarted(true);
   };
 
@@ -36,8 +36,9 @@ const Airport = () => {
       console.log(planeListData);
     };
 
-    axios.get(baseUrl + 'api/airport/status').then(response => {
-         setIsStarted(response.data)});
+    axios.get(baseUrl + "api/airport/status").then((response) => {
+      setIsStarted(response.data);
+    });
 
     connection.start().then(() => {
       console.log("SignalR connection established.");
@@ -51,7 +52,7 @@ const Airport = () => {
         <div className="main-container">
           <div className="title-container">
             <div className="title">
-                <VideoPreview/>
+              <VideoPreview />
             </div>
           </div>
           <div className="mid-container">
@@ -122,7 +123,11 @@ const Airport = () => {
             <UpdateTable planeListData={planeListData} />
           </div>
           <div className="btn-container">
-             {isStarted ?  <h3>On Air</h3>: <button onClick={handleClick}>Start</button>} 
+            {isStarted ? (
+              <h3>On Air</h3>
+            ) : (
+              <button onClick={handleClick}>Start</button>
+            )}
           </div>
         </div>
       </div>

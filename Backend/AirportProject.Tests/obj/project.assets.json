@@ -6898,6 +6898,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "C:\\Users\\dvira\\Documents\\MyProjects\\Airport\\Backend\\Airportproject1\\Airportproject.Client.csproj",
       "MSTest.TestAdapter >= 2.2.10",
       "MSTest.TestFramework >= 2.2.10",
       "Microsoft.NET.Test.Sdk >= 17.3.2",
@@ -6912,11 +6913,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\dvira\\Documents\\MyProjects\\Airport\\Backend\\AirportProject.Tests\\AirportProject.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\dvira\\Documents\\MyProjects\\Airport\\Backend\\AirportProject.Tests\\AirportProject.Tests.csproj",
       "projectName": "AirportProject.Tests",
-      "projectPath": "c:\\Users\\dvira\\Documents\\MyProjects\\Airport\\Backend\\AirportProject.Tests\\AirportProject.Tests.csproj",
+      "projectPath": "C:\\Users\\dvira\\Documents\\MyProjects\\Airport\\Backend\\AirportProject.Tests\\AirportProject.Tests.csproj",
       "packagesPath": "C:\\Users\\dvira\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\dvira\\Documents\\MyProjects\\Airport\\Backend\\AirportProject.Tests\\obj\\",
+      "outputPath": "C:\\Users\\dvira\\Documents\\MyProjects\\Airport\\Backend\\AirportProject.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -6936,7 +6937,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\dvira\\Documents\\MyProjects\\Airport\\Backend\\Airportproject1\\Airportproject.Client.csproj": {
+              "projectPath": "C:\\Users\\dvira\\Documents\\MyProjects\\Airport\\Backend\\Airportproject1\\Airportproject.Client.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -6989,5 +6994,16 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Unable to find project 'C:\\Users\\dvira\\Documents\\MyProjects\\Airport\\Backend\\Airportproject1\\Airportproject.Client.csproj'. Check that the project reference is valid and that the project file exists.",
+      "libraryId": "C:\\Users\\dvira\\Documents\\MyProjects\\Airport\\Backend\\Airportproject1\\Airportproject.Client.csproj",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
 }

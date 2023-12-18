@@ -1,6 +1,5 @@
-﻿using AirportBackend.Services.Interfaces;
-using AirportBackend.Services.signalR;
-using AirportBackend.Models;
+﻿using AirportBackend.Models;
+using AirportBackend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AirportBackend.Controllers
@@ -9,30 +8,34 @@ namespace AirportBackend.Controllers
     [ApiController]
     public class AirportController : ControllerBase
     {
-        private readonly IFlightsManager _flightManager;
+        private readonly IFlightsManager _flightsManager;
         private readonly ISimulator _simulator;
 
-        public AirportController(IFlightsManager flightManager, ISimulator simulator, HubContextService hubService)
+        public AirportController(IFlightsManager flightManager, ISimulator simulator)
         {
-            _flightManager = flightManager;
+            _flightsManager = flightManager;
             _simulator = simulator;
         }
 
-        [HttpGet("depatures")]
-        public IEnumerable<Flight> GetDepatures()
+        [HttpGet("departures")]
+        public IEnumerable<Flight> GetDepartures()
         {
-            return _flightManager.Flights.Where(f => f.isDeparting).ToList();
+            return _flightsManager.Flights.Where(f => f.IsDeparting).ToList();
         }
+
         [HttpGet("arrivals")]
         public IEnumerable<Flight> GetArrivals()
         {
-            return _flightManager.Flights.Where(f => !f.isDeparting).ToList();
+            return _flightsManager.Flights.Where(f => !f.IsDeparting).ToList();
         }
-        [HttpGet("start")]
+
+        [HttpPost("start")]
+        // POST Method due to state changing
         public void Start()
         {
             _simulator.Start();
         }
+
         [HttpGet("status")]
         public bool SendStatus()
         {
