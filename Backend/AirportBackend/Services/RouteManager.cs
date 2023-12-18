@@ -7,7 +7,7 @@ namespace AirportBackend.Services
     public class RouteManager : IRouteManager
     {
         public Station[] Route { get; set; }
-        private readonly Queue<Flight> _queue67 = new Queue<Flight>();
+        private readonly Queue<Flight> _queue67 = new();
         private readonly HubContextService _signalRService;
         private readonly SemaphoreSlim _sem = new(1);
         public event Action<Flight>? FlightLeftTheRoute;
@@ -42,7 +42,7 @@ namespace AirportBackend.Services
             if (nextStation == -1)
             {
                 _ = _repo.UpdateRouteState(Route);
-                await _signalRService.RouteState(Route);
+                await _signalRService.SendRouteState(Route);
                 Console.WriteLine($"Flight {flight.FlightNumber} left the Terminal at time {DateTime.Now} Departing:{flight.IsDeparting}");
                 if (FlightLeftTheRoute != null)
                     FlightLeftTheRoute.Invoke(flight);
@@ -56,7 +56,7 @@ namespace AirportBackend.Services
                 Route[nextStation].Flight = flight;
                 flight.CurrentStation = Route[nextStation];
                 _ = _repo.UpdateRouteState(Route);
-                await _signalRService.RouteState(Route);
+                await _signalRService.SendRouteState(Route);
                 Console.WriteLine($"Flight {flight.FlightNumber} Entered {flight.CurrentStation.Name} at time {DateTime.Now} Departing:{flight.IsDeparting}  ");
                 Console.WriteLine($"------------------------------------------------------------------------------------------------------------");
                 Thread.Sleep(3000);
@@ -70,7 +70,7 @@ namespace AirportBackend.Services
                 Route[6].Flight = flight;
                 flight.CurrentStation = Route[6];
                 _ = _repo.UpdateRouteState(Route);
-                await _signalRService.RouteState(Route);
+                await _signalRService.SendRouteState(Route);
                 Console.WriteLine($"Flight {flight.FlightNumber} Entered {flight.CurrentStation.Name} at time {DateTime.Now} Departing:{flight.IsDeparting} ");
                 Console.WriteLine($"------------------------------------------------------------------------------------------------------------");
                 Thread.Sleep(3000);
@@ -83,7 +83,7 @@ namespace AirportBackend.Services
                 _sem.Release();
                 Route[nextStation].Queue.Enqueue(flight);
                 _ = _repo.UpdateRouteState(Route);
-                await _signalRService.RouteState(Route);
+                await _signalRService.SendRouteState(Route);
                 Console.WriteLine($"Flight {flight.FlightNumber} Put in {Route[nextStation].Name} queue at time {DateTime.Now} Departing:{flight.IsDeparting} ");
                 Console.WriteLine($"------------------------------------------------------------------------------------------------------------");
             }
@@ -92,7 +92,7 @@ namespace AirportBackend.Services
         {
             flight.CurrentStation!.Flight = null;
             _ = _repo.UpdateRouteState(Route);
-            await _signalRService.RouteState(Route);
+            await _signalRService.SendRouteState(Route);
             Console.WriteLine($"Flight {flight.FlightNumber} Exited {flight.CurrentStation!.Name} at time {DateTime.Now} Departing:{flight.IsDeparting}");
             Console.WriteLine($"------------------------------------------------------------------------------------------------------------");
             if (flight.CurrentStation.Queue.Count > 0)
@@ -101,7 +101,7 @@ namespace AirportBackend.Services
                 Console.WriteLine($"Flight {newFlight.FlightNumber} Released from {flight.CurrentStation.Name} queue at time {DateTime.Now} Departing:{newFlight.IsDeparting} ");
                 Console.WriteLine($"------------------------------------------------------------------------------------------------------------");
                 _ = _repo.UpdateRouteState(Route);
-                await _signalRService.RouteState(Route);
+                await _signalRService.SendRouteState(Route);
                 await EnterStation(newFlight);
             }
         }

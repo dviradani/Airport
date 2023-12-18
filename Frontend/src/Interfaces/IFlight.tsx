@@ -1,6 +1,6 @@
 interface IFlight {
   flightNumber: number;
-  name: string;
+  destination: string;
   isDeparting: boolean;
 }
 export default IFlight;

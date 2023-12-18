@@ -10,12 +10,12 @@ public class HubContextService
         _hubContext = hubContext;
     }
 
-    public async Task RouteState(Station[] route)
+    public async Task SendRouteState(Station[] route)
     {
-        await _hubContext.Clients.All.SendAsync("GetRoute", route);
+        await _hubContext.Clients.All.SendAsync("GetRouteState", route);
     }
 
-    public async Task SendFlight(List<Flight> flights)
+    public async Task SendFlights(List<Flight> flights)
     {
         await _hubContext.Clients.All.SendAsync("GetFlights", flights);
     }

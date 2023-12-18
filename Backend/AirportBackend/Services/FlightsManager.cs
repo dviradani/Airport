@@ -27,7 +27,7 @@ namespace AirportBackend.Services
         public async Task AddFlight(Flight flight)
         {
             Flights.Add(flight);
-            await _hubService.SendFlight(Flights.ToList());
+            await _hubService.SendFlights(Flights.ToList());
             _ = _repo.SaveFlight(flight);
             Fly(flight);
         }
@@ -35,7 +35,7 @@ namespace AirportBackend.Services
         public void RemoveFlight(Flight flight)
         {
             Flights.Remove(flight);
-            _ = _hubService.SendFlight(Flights.ToList());
+            _ = _hubService.SendFlights(Flights.ToList());
         }
 
         private void Fly(Flight flight)

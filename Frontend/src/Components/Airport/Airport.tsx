@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import IFlight from "../../Interfaces/IFlight";
 import IStation from "../../Interfaces/IStation";
@@ -42,7 +41,7 @@ const Airport = () => {
 
     connection.start().then(() => {
       console.log("SignalR connection established.");
-      connection.on("GetRoute", handlerouteData);
+      connection.on("GetRouteState", handlerouteData);
       connection.on("GetFlights", getPlanesData);
     });
   }, []);

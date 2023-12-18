@@ -5,17 +5,19 @@ namespace AirportBackend.Services.signalR
 {
     public class AirportHub : Hub
     {
-        public async Task RouteState(Station[] route)
+        public async Task SendRouteState(Station[] route)
         {
             await Clients.All.SendAsync("GetRoute", route);
         }
-        public async Task DeparturesState(List<Flight> departures)
+
+        public async Task SendDepartingFlights(List<Flight> departures)
         {
-            await Clients.All.SendAsync("GetDeparture", departures);
+            await Clients.All.SendAsync("GetDepartingFlights", departures);
         }
-        public async Task ArrivalsState(List<Flight> arrivals)
+
+        public async Task SendArrivingFlights(List<Flight> arrivals)
         {
-            await Clients.All.SendAsync("GetArrivale", arrivals);
+            await Clients.All.SendAsync("GetArrivingFlights", arrivals);
         }
     }
 }

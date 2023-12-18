@@ -33,7 +33,7 @@ const UpdateTable = ({ planeListData }: IUpdateTableProps) => {
 function checkArriving(flight: IFlight) {
   if (flight != null) {
     return !flight.isDeparting ? (
-      <li>{flight.flightNumber + "    " + flight.name}</li>
+      <li>{flight.flightNumber + "    " + flight.destination}</li>
     ) : null;
   } else {
     return null;
@@ -43,7 +43,7 @@ function checkArriving(flight: IFlight) {
 function checkDeparturing(flight: IFlight) {
   if (flight != null) {
     return flight.isDeparting ? (
-      <li>{flight.flightNumber + " " + flight.name}</li>
+      <li>{flight.flightNumber + " " + flight.destination}</li>
     ) : null;
   } else {
     return null;

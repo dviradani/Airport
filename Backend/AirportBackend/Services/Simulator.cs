@@ -8,15 +8,14 @@ namespace AirportBackend.Services
     public class Simulator : ISimulator
     {
         private readonly IFlightsManager _flightManager;
-        //private readonly AirportContext _context;
-        Timer _timer = new();
-        Random _random = new Random();
+        readonly Timer _timer = new();
+        readonly Random _random = new();
+
         public bool IsStarted { get; private set; }
+
         public Simulator(IFlightsManager flightManager)
         {
-
             _flightManager = flightManager;
-            // _context = context;
         }
         public void Start(int interval = 5000)
         {
@@ -31,17 +30,17 @@ namespace AirportBackend.Services
         }
         private void CreateRandomFlight(object? sender, System.Timers.ElapsedEventArgs e)
         {
-            var flight = new Flight();
-            flight.FlightNumber = _random.Next(10000);
             int totalCountries = Enum.GetNames(typeof(Countries)).Length;
             int randomIndex = _random.Next(0, totalCountries);
-            flight.Name = Enum.GetName(typeof(Countries), randomIndex);
-            flight.IsDeparting = _random.Next(2) == 0;
-            Console.WriteLine($"Flight {flight.FlightNumber} {flight.Name} Created at time {DateTime.Now} Departing:{flight.IsDeparting}");
+            var flight = new Flight
+            {
+                FlightNumber = _random.Next(10000),
+                Destination = Enum.GetName(typeof(Countries), randomIndex),
+                IsDeparting = _random.Next(2) == 0,
+            };
+            Console.WriteLine($"Flight {flight.FlightNumber} {flight.Destination} Created at time {DateTime.Now} Departing:{flight.IsDeparting}");
             Console.WriteLine($"------------------------------------------------------------------------------------------------------------");
             _flightManager.AddFlight(flight);
-            //_context.Flights.Add(flight);
-            //_context.SaveChangesAsync();
         }
     }
 }
