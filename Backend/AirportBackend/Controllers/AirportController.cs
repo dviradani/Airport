@@ -8,10 +8,10 @@ namespace AirportBackend.Controllers
     [ApiController]
     public class AirportController : ControllerBase
     {
-        private readonly IFlightsManager _flightsManager;
+        private readonly IFlightsListManager _flightsManager;
         private readonly ISimulator _simulator;
 
-        public AirportController(IFlightsManager flightManager, ISimulator simulator)
+        public AirportController(IFlightsListManager flightManager, ISimulator simulator)
         {
             _flightsManager = flightManager;
             _simulator = simulator;

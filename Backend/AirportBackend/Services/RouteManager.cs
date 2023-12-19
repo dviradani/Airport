@@ -1,21 +1,24 @@
-﻿using AirportBackend.Services.Interfaces;
+﻿using AirportBackend.Models;
+using AirportBackend.Services.Interfaces;
 using AirportBackend.Services.Repositories;
 using AirportBackend.Services.signalR;
-using AirportBackend.Models;
 namespace AirportBackend.Services
 {
     public class RouteManager : IRouteManager
     {
-        public Station[] Route { get; set; }
         private readonly Queue<Flight> _queue67 = new();
         private readonly HubContextService _signalRService;
         private readonly SemaphoreSlim _sem = new(1);
-        public event Action<Flight>? FlightLeftTheRoute;
         private readonly IMainRepository _repo;
+
+        public event Action<Flight>? FlightLeftTheRoute;
+        public Station[] Route { get; set; }
+
         public RouteManager(HubContextService service, IMainRepository repo)
         {
             _repo = repo;
             _signalRService = service;
+
             //Initialize Stations
             Route = new Station[8];
             for (int i = 1; i <= Route.Length; i++)
@@ -26,6 +29,7 @@ namespace AirportBackend.Services
                     Id = i
                 };
             }
+
             // Station 6 & 7 have the same queue
             Route[5].Queue = _queue67;
             Route[6].Queue = _queue67;
@@ -44,12 +48,12 @@ namespace AirportBackend.Services
                 _ = _repo.UpdateRouteState(Route);
                 await _signalRService.SendRouteState(Route);
                 Console.WriteLine($"Flight {flight.FlightNumber} left the Terminal at time {DateTime.Now} Departing:{flight.IsDeparting}");
-                if (FlightLeftTheRoute != null)
-                    FlightLeftTheRoute.Invoke(flight);
+                FlightLeftTheRoute?.Invoke(flight);
                 return;
             }
             // Becuase of the sempaphore, only 1 thread will can checking its next station's state
             await _sem.WaitAsync();
+
             if (Route![nextStation].Flight == null)
             {
                 _sem.Release();
@@ -105,7 +109,7 @@ namespace AirportBackend.Services
                 await EnterStation(newFlight);
             }
         }
-        private int FindNextStation(Flight flight)
+        private static int FindNextStation(Flight flight)
         {
             if (!flight.IsDeparting)
             {
@@ -135,6 +139,5 @@ namespace AirportBackend.Services
                 };
             }
         }
-
     }
 }

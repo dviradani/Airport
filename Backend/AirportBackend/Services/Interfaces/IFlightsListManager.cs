@@ -2,7 +2,7 @@
 
 namespace AirportBackend.Services.Interfaces
 {
-    public interface IFlightsManager
+    public interface IFlightsListManager
     {
         List<Flight> Flights { get; }
 

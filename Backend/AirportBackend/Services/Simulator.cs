@@ -1,32 +1,30 @@
-﻿using AirportBackend.Services.Enums;
-using AirportBackend.Services.Interfaces;
+﻿using AirportBackend.Services.Interfaces;
 using AirportBackend.Models;
 using Timer = System.Timers.Timer;
+using AirportBackend.Models.Enums;
 
 namespace AirportBackend.Services
 {
     public class Simulator : ISimulator
     {
-        private readonly IFlightsManager _flightManager;
+        private readonly IFlightsListManager _flightListManager;
         readonly Timer _timer = new();
         readonly Random _random = new();
 
         public bool IsStarted { get; private set; }
 
-        public Simulator(IFlightsManager flightManager)
+        public Simulator(IFlightsListManager flightManager)
         {
-            _flightManager = flightManager;
+            _flightListManager = flightManager;
         }
         public void Start(int interval = 5000)
         {
-            if (!IsStarted)
-            {
-                _timer.Interval = interval;
-                _timer.Elapsed += CreateRandomFlight;
-                _timer.AutoReset = true;
-                _timer.Enabled = true;
-                IsStarted = true;
-            }
+            if (IsStarted) return;
+            _timer.Interval = interval;
+            _timer.Elapsed += CreateRandomFlight;
+            _timer.AutoReset = true;
+            _timer.Enabled = true;
+            IsStarted = true;
         }
         private void CreateRandomFlight(object? sender, System.Timers.ElapsedEventArgs e)
         {
@@ -40,7 +38,7 @@ namespace AirportBackend.Services
             };
             Console.WriteLine($"Flight {flight.FlightNumber} {flight.Destination} Created at time {DateTime.Now} Departing:{flight.IsDeparting}");
             Console.WriteLine($"------------------------------------------------------------------------------------------------------------");
-            _flightManager.AddFlight(flight);
+            _flightListManager.AddFlight(flight);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace AirportBackend
 
             builder.Services.AddControllers();
             builder.Services.AddDbContext<AirportContext>(o => o.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
-            builder.Services.AddSingleton<IFlightsManager, FlightsManager>();
+            builder.Services.AddSingleton<IFlightsListManager, FlightsListManager>();
             builder.Services.AddSingleton<ISimulator, Simulator>();
             builder.Services.AddSingleton<IRouteManager, RouteManager>();
             builder.Services.AddSingleton<IMainRepository, MainRepository>();

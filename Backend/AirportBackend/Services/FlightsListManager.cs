@@ -1,24 +1,20 @@
-﻿using AirportBackend.Services.Interfaces;
+﻿using AirportBackend.Models;
+using AirportBackend.Services.Interfaces;
 using AirportBackend.Services.Repositories;
 using AirportBackend.Services.signalR;
-using AirportBackend.Models;
 
 namespace AirportBackend.Services
 {
-    /// <summary>
-    /// This class is responsible to the flight list
-    /// </summary>
-    public class FlightsManager : IFlightsManager
+    public class FlightsListManager : IFlightsListManager
     {
-        public List<Flight> Flights { get; private set; }
+        public List<Flight> Flights { get; private set; } = new();
         private readonly IRouteManager _routeManager;
         private readonly HubContextService _hubService;
         private readonly IMainRepository _repo;
-        public FlightsManager(IRouteManager routeManager, HubContextService hubService, IMainRepository repo)
+        public FlightsListManager(IRouteManager routeManager, HubContextService hubService, IMainRepository repo)
         {
             _repo = repo;
             _routeManager = routeManager;
-            Flights = new List<Flight>();
             _hubService = hubService;
 
             // Remove a flight from the list when the flight leaves the airport

@@ -1,4 +1,4 @@
-﻿namespace AirportBackend.Services.Enums
+﻿namespace AirportBackend.Models.Enums
 {
     public enum Countries
     {

@@ -1,6 +1,9 @@
 ﻿using AirportBackend.Models;
 using Microsoft.AspNetCore.SignalR;
 namespace AirportBackend.Services.signalR;
+
+public class AirportHub : Hub { }
+
 public class HubContextService
 {
     private readonly IHubContext<AirportHub> _hubContext;
